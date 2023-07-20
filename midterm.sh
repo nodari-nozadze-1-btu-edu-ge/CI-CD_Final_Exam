@@ -48,6 +48,40 @@ BLACK_OUTPUT_PATH=""
 PYTEST_RESULT=0
 BLACK_RESULT=0
 
+if git ls-remote --exit-code "$CODE_REPO_URL" &> /dev/null; then
+    if git ls-remote --exit-code --heads "$CODE_REPO_URL" "$CODE_DEV_BRANCH_NAME" &> /dev/null; then
+    echo > /dev/null
+    else
+        echo "Branch '$CODE_DEV_BRANCH_NAME' does not exist"
+        exit 1
+    fi
+else
+    echo "Repository does not exist"
+    exit 1
+fi
+if git ls-remote --exit-code "$REPORT_REPO_URL" &> /dev/null; then
+    echo > /dev/null
+    if git ls-remote --exit-code --heads "$REPORT_REPO_URL" "$REPORT_BRANCH_NAME" &> /dev/null; then
+        echo > /dev/null
+    else
+        echo "Branch '$REPORT_BRANCH_NAME' does not exist"
+        exit 1
+    fi
+else
+    echo "Repository does not exist"
+    exit 1
+fi
+
+if ! pytest --version >/dev/null 2>&1; then
+    echo "black is not installed"
+    exit 1
+fi
+
+if ! black --version >/dev/null 2>&1; then
+    echo "pytest is not installed"
+    exit 1
+fi
+
 # Function to clean up temporary files and directories upon script termination
 cleanup() {
     echo "Cleaning up..."
