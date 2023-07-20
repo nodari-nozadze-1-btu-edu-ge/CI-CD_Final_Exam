@@ -47,4 +47,4 @@ The script automatically cleans up any temporary files and directories created d
 Contributions and Issues
 Please feel free to contribute to this script by creating pull requests or reporting any issues you encounter. We appreciate your feedback and contributions to make this tool more robust and efficient.
 
-Happy Testing!
+Happy Testing!   ;)
